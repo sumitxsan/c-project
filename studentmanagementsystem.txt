@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_STUDENTS 50
+
+struct Student {
+    char name[50];
+    int rollNumber;
+    float marks;
+    char grade;
+};
+
+struct Student students[MAX_STUDENTS];
+int numStudents = 0;
+
+void addStudent() {
+    if (numStudents >= MAX_STUDENTS) {
+        printf("Maximum number of students reached!\n");
+        return;
+    }
+    
+    struct Student newStudent;
+    
+    printf("Enter name: ");
+    scanf("%s", newStudent.name);
+    
+    printf("Enter roll number: ");
+    scanf("%d", &newStudent.rollNumber);
+    
+    printf("Enter marks: ");
+    scanf("%f", &newStudent.marks);
+    
+    if (newStudent.marks >= 90) {
+        newStudent.grade = 'A';
+    } else if (newStudent.marks >= 80) {
+        newStudent.grade = 'B';
+    } else if (newStudent.marks >= 70) {
+        newStudent.grade = 'C';
+    } else if (newStudent.marks >= 60) {
+        newStudent.grade = 'D';
+    } else {
+        newStudent.grade = 'F';
+    }
+    
+    students[numStudents++] = newStudent;
+    
+    printf("Student added successfully!\n");
+}
+
+void displayStudents() {
+    if (numStudents == 0) {
+        printf("No students found!\n");
+        return;
+    }
+    
+    printf("Student Data:\n");
+    printf("-------------------------------------------------------\n");
+    printf("Name\t\tRoll Number\tMarks\tGrade\n");
+    printf("-------------------------------------------------------\n");
+    
+    for (int i = 0; i < numStudents; i++) {
+        printf("%s\t\t%d\t\t%.2f\t%c\n", students[i].name, students[i].rollNumber, students[i].marks, students[i].grade);
+    }
+    
+    printf("-------------------------------------------------------\n");
+}
+
+int main() {
+    int choice;
+    
+    while (1) {
+        printf("Student Management System\n");
+        printf("1. Add Student\n");
+        printf("2. Display Students\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+            case 2:
+                displayStudents();
+                break;
+            case 3:
+                printf("Exiting...\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    
+    return 0;
+}
+
+   
